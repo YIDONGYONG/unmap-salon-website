@@ -25,6 +25,10 @@ export default function AdminPage() {
 
   const fetchReservations = async () => {
     try {
+      // GitHub Pages는 정적 사이트이므로 API 라우트가 작동하지 않습니다.
+      // 데이터베이스 연결 기능은 주석처리되었습니다.
+      
+      /*
       // 환경 변수에서 Admin API Token 가져오기 (클라이언트에서는 빌드 타임에 주입 필요)
       // 실제 운영 환경에서는 서버 사이드에서 토큰을 관리하거나
       // 별도의 인증 시스템을 구축하는 것이 좋습니다.
@@ -54,6 +58,10 @@ export default function AdminPage() {
       } else {
         setError('예약 목록을 불러오는데 실패했습니다.')
       }
+      */
+      
+      // GitHub Pages에서는 데이터베이스 연결이 불가능합니다.
+      setError('GitHub Pages는 정적 사이트이므로 데이터베이스 연결이 불가능합니다. 예약 데이터는 이메일로 수신됩니다.')
     } catch (error) {
       setError('서버 오류가 발생했습니다.')
     } finally {

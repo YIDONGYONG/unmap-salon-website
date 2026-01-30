@@ -1,3 +1,7 @@
+// GitHub Pages는 정적 사이트이므로 API 라우트가 작동하지 않습니다.
+// 이 파일은 주석처리되었으며, 예약 기능은 mailto/Formspree를 통해 작동합니다.
+
+/*
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { checkRateLimit } from '@/lib/rate-limit'
@@ -127,3 +131,7 @@ export async function GET(request: NextRequest) {
     )
   }
 }
+*/
+
+// GitHub Pages용 빈 export (빌드 에러 방지)
+export const dynamic = 'force-static'

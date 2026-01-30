@@ -8,7 +8,8 @@
     "export": "next build",
     "start": "next start -p 3001",
     "lint": "next lint",
-    "tunnel": "npx ngrok http 3001"
+    "tunnel": "npx ngrok http 3001",
+    "test-build": "next build && echo 'Build successful!'"
   },
   "dependencies": {
     "@prisma/client": "^6.14.0",

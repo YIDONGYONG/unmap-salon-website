@@ -1,3 +1,7 @@
+// GitHub Pages는 정적 사이트이므로 API 라우트가 작동하지 않습니다.
+// 이메일 전송 기능은 Formspree 또는 mailto를 통해 작동합니다.
+
+/*
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 import React from 'react'
@@ -101,3 +105,7 @@ export async function POST(request: NextRequest) {
     )
   }
 }
+*/
+
+// GitHub Pages용 빈 export (빌드 에러 방지)
+export const dynamic = 'force-static'
