@@ -1,16 +1,18 @@
 import type { NextConfig } from "next";
 
+const isProd = process.env.NODE_ENV === 'production'
+const basePath = isProd ? '/unmap-salon-website' : ''
+
 const nextConfig: NextConfig = {
   trailingSlash: true,
   images: {
     unoptimized: true
   },
-  // Vercel 배포 시 필요한 설정
-  output: 'standalone',
-  // 환경 변수 검증
-  env: {
-    DATABASE_URL: process.env.DATABASE_URL,
-  },
+  // GitHub Pages 배포를 위한 정적 export
+  output: 'export',
+  // GitHub Pages base path 설정 (저장소 이름이 base path가 됨)
+  basePath: basePath,
+  assetPrefix: basePath,
 };
 
 export default nextConfig;

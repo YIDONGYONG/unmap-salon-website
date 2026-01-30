@@ -30,13 +30,54 @@ export default function Contact() {
     setSubmitStatus('idle')
 
     try {
-      // 내부 API 엔드포인트로 예약 데이터 전송
-      const response = await fetch('/api/reservations', {
+      // Formspree 또는 mailto를 사용한 예약 전송
+      // GitHub Pages는 정적 사이트이므로 API 라우트가 작동하지 않음
+      // 옵션 1: Formspree 사용 (무료 플랜 제공)
+      const formspreeEndpoint = process.env.NEXT_PUBLIC_FORMSPREE_ID || 'YOUR_FORMSPREE_ID'
+      
+      // 옵션 2: mailto 링크 사용 (간단하지만 사용자 경험이 떨어짐)
+      if (!formspreeEndpoint || formspreeEndpoint === 'YOUR_FORMSPREE_ID') {
+        // mailto 링크로 대체
+        const subject = encodeURIComponent(`예약 문의 - ${formData.name}`)
+        const body = encodeURIComponent(
+          `이름: ${formData.name}\n` +
+          `전화번호: ${formData.phone}\n` +
+          `이메일: ${formData.email || '없음'}\n` +
+          `예약 날짜: ${formData.date}\n` +
+          `예약 시간: ${formData.time}\n` +
+          `서비스: ${formData.service || '없음'}\n` +
+          `요청사항: ${formData.message || '없음'}`
+        )
+        window.location.href = `mailto:dlehddyd535@gmail.com?subject=${subject}&body=${body}`
+        setSubmitStatus('success')
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          date: '',
+          time: '',
+          service: '',
+          message: ''
+        })
+        return
+      }
+
+      // Formspree로 전송
+      const response = await fetch(`https://formspree.io/f/${formspreeEndpoint}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          date: formData.date,
+          time: formData.time,
+          service: formData.service,
+          message: formData.message,
+          _subject: `예약 문의 - ${formData.name}`,
+        }),
       })
 
       if (response.ok) {
@@ -51,8 +92,6 @@ export default function Contact() {
           message: ''
         })
       } else {
-        const errorData = await response.json()
-        console.error('예약 저장 오류:', errorData)
         setSubmitStatus('error')
       }
     } catch (error) {
